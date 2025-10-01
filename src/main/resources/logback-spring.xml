@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 어떻게 기록할 것인가 (Logger)--> <!-- 로깅 설정 파일 (logback-spring.xml) -->
+<configuration>
+
+    <!-- 로그 컬러 설정 컨버터 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+
+    <!-- 변수명과, 패턴 저장 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%5level) %cyan(%logger) - %msg%n"/>
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5level %logger - %msg%n"/>
+
+
+
+    <!--local 환경에서의 로그설정-->
+    <springProfile name="local">
+
+        <!-- include = 어떤 appender를 사용할지 추가 (자바 import와 동일)  -->
+        <include resource="console-appender.xml"/>
+        <include resource="file-info-appender.xml"/> <!-- 파일에 로그 저장을 위한 appender 추가 -->
+
+
+
+        <!-- 루트 로거 설정: INFO 레벨 이상의 로그를 콘솔에 기록 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/> <!-- 필요한 appender 이름을 appender-ref 태그에 추가 -->
+            <appender-ref ref="FILE-INFO"/> <!-- 파일로 로그 저장 -->
+        </root>
+
+    </springProfile>
+
+
+    <!--develop 환경에서의 로그설정-->
+    <springProfile name="develop">
+
+        <!-- include = 어떤 appender를 사용할지 추가 (자바 import와 동일)  -->
+        <include resource="console-appender.xml"/> <!-- 콘솔에 로그 출력 -->
+        <include resource="file-info-appender.xml"/> <!-- INFO 레벨 이상의 로그 파일 저장 -->
+
+
+        <!-- 루트 로거 설정: INFO로 설정 -->
+        <root level="INFO">
+            <include resource="console-appender.xml"/> <!-- 콘솔에 로그 출력 -->
+            <appender-ref ref="FILE-INFO"/> <!-- INFO 레벨 이상의 로그 파일 저장 -->
+        </root>
+
+    </springProfile>
+
+    <!--blue 환경에서의 로그설정-->
+    <springProfile name="blue">
+
+        <!-- include = 어떤 appender를 사용할지 추가 (자바 import와 동일)  -->
+        <include resource="console-appender.xml"/> <!-- 콘솔에 로그 출력 -->
+        <include resource="file-info-appender.xml"/> <!-- INFO 레벨 이상의 로그 파일 저장 -->
+
+
+        <!-- 루트 로거 설정: INFO로 설정 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE-INFO"/> <!-- INFO 레벨 이상의 로그 파일 저장 -->
+        </root>
+
+    </springProfile>
+
+    <!--green 환경에서의 로그설정-->
+    <springProfile name="green">
+
+        <!-- include = 어떤 appender를 사용할지 추가 (자바 import와 동일)  -->
+        <include resource="console-appender.xml"/> <!-- 콘솔에 로그 출력 -->
+        <include resource="file-info-appender.xml"/> <!-- INFO 레벨 이상의 로그 파일 저장 -->
+
+        <!-- 루트 로거 설정: INFO로 설정 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE-INFO"/> <!-- INFO 레벨 이상의 로그 파일 저장 -->
+        </root>
+
+    </springProfile>
+
+
+</configuration>
